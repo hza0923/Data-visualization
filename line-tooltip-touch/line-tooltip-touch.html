@@ -39,19 +39,28 @@
     var app = {};
     
     var option;
-      var europe = [5, 3, 5, 10, 7, 19, 11, 7, 9, 10, 8, 9]
-      var asia = [0, 1, 5, 4, 6, 8, 5, 10, 18, 26, 29, 35]
+      let base = +new Date(1950, 0, 1);
+      let year = 1950;
+      let europe = [25, 36, 37, 25, 17, 13, 28, 43, 48, 35];
+      let america = [18, 26, 28, 15, 18, 25, 30, 35, 41, 38];
+      let china = [0, 0, 0, 0, 0, 2, 12, 10, 34, 15];
+      let japan = [10, 12, 10, 9, 11, 16, 94, 116, 147, 95];
 
-      let base = +new Date(1920, 1, 1);
-      let oneDay = 24 * 3600 * 1000 * 365 * 5;//5年
       let data = [];
       let data2 = [];
-      for (var i = 0; i < 12; i++) {
-          if (i < 8) var now = new Date((base += oneDay * 2));
-          else var now = new Date((base += oneDay));
+      let data3 = [];
+      let data4 = [];
+      for (var i = 0; i < 10; i++) {
+          var now = new Date(year, 0, 1);
+          if (year < 2000) year += 10;
+          else year += 5;
           var dayStr = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-');
+
           data.push([dayStr, europe[i]]);
-          data2.push([dayStr, asia[i]]);
+
+          data2.push([dayStr, america[i]]);
+          data3.push([dayStr, china[i]]);
+          data4.push([dayStr, japan[i]]);
       }
       option = {
           title: {
@@ -146,18 +155,18 @@
                       color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                           {
                               offset: 0,
-                              color: 'rgba(58,77,233,0.8)'
+                              color: 'rgba(10,150,10,0.8)'
                           },
                           {
                               offset: 1,
-                              color: 'rgba(58,77,233,0.3)'
+                              color: 'rgba(10,150,10,0.3)'
                           }
                       ])
                   },
                   data: data
               },
               {
-                  name: 'asia',
+                  name: 'america',
                   type: 'line',
                   smooth: true,
                   stack: 'a',
@@ -171,19 +180,68 @@
                       color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                           {
                               offset: 0,
-                              color: 'rgba(213,72,120,0.8)'
+                              color: 'rgba(50,100,50,0.8)'
                           },
                           {
                               offset: 1,
-                              color: 'rgba(213,72,120,0.3)'
+                              color: 'rgba(50,100,50,0.3)'
                           }
                       ])
                   },
                   data: data2
+              },
+              {
+                  name: 'china',
+                  type: 'line',
+                  smooth: true,
+                  stack: 'a',
+                  symbol: 'circle',
+                  symbolSize: 5,
+                  sampling: 'average',
+                  itemStyle: {
+                      color: '#F2597F'
+                  },
+                  areaStyle: {
+                      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                          {
+                              offset: 0,
+                              color: 'rgba(100,50,100,0.8)'
+                          },
+                          {
+                              offset: 1,
+                              color: 'rgba(100,50,100,0.3)'
+                          }
+                      ])
+                  },
+                  data: data3
+              },
+              {
+                  name: 'japan',
+                  type: 'line',
+                  smooth: true,
+                  stack: 'a',
+                  symbol: 'circle',
+                  symbolSize: 5,
+                  sampling: 'average',
+                  itemStyle: {
+                      color: '#F2597F'
+                  },
+                  areaStyle: {
+                      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                          {
+                              offset: 0,
+                              color: 'rgba(150,10,150,0.8)'
+                          },
+                          {
+                              offset: 1,
+                              color: 'rgba(150,10,150,0.3)'
+                          }
+                      ])
+                  },
+                  data: data4
               }
           ]
       };
-
     if (option && typeof option === 'object') {
       myChart.setOption(option);
     }
