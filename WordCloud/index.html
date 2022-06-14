@@ -5,30 +5,32 @@
     <script src='./dist/echarts.min.js'></script>
     <script src='./dist/echarts-wordcloud.js'></script>
     <script src='./dist/d3.v3.min.js'></script>
-    
+    <script type="text/javascript" src="./jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="./index.css">
 </head>
 
-<body>
+<body id="dad">
     <div id= 'main'></div>  
-    <input type="button" id="change_style" value="切换样式" onclick="changestyle()">
+    <input type="button" id="change_style" value="切换样式">
 
     <script>
         var chart = echarts.init(document.getElementById("main"));
         var optseq = 0;
+        $('#change_style').click(function () {
 
-        function changestyle() {
             optseq += 1;
             var opt;
             if (optseq % 3 == 0) {
                 opt = TDC_option;
-            } else if(optseq % 3 == 1) {
+            } else if (optseq % 3 == 1) {
                 opt = DM_option;
             } else {
                 opt = Coc_option;
             }
+            console.log("opt=", opt);
             chart.setOption(opt, true);
-        }
+        })
+        
         // var chart = echarts.init(document.getElementById('main'));
 
 
@@ -173,7 +175,7 @@
             for (var i = 0; i < TDC_length; i += 1) {
                 TDC_data.push({
                     name: list.RECORDS[i].name,
-                    value: Math.sqrt(list.RECORDS[i].cnt / 2),
+                    value: Math.sqrt(list.RECORDS[i].cnt / 4),
                     // value: Math.sqrt(list.RECORDS[i].cnt / 2),
                     // textStyle: {color: 'red'},
                 })
