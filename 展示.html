@@ -53,8 +53,13 @@
 
 
     <script type="text/javascript">
-
+        
+        
         var display_page = function (i) {
+            var ratio = window.devicePixelRatio / 1.25;
+            var rate = screen.width / this.clientWidth;
+            //console.log(ratio)
+            
             //每次展示新的图前把旧的图删掉 并重新附加上事件监听器
             $('#container').remove();
             $('#container1').remove();
@@ -146,30 +151,39 @@
             }//豆瓣推理
             else if (i == 2) {//旭日图
                 $('#container').click(function (e) {
+                    width = this.clientWidth, height = this.clientHeight;
+                    x = e.clientX, y = e.clientY;
+                    centerX = width / 2, centerY = height / 2;
+                    r1 = 40 * ratio
+                    r2 = 100 * ratio
+                    r3 = 130 * ratio
+                    r4 = 280 * ratio
+                    dx = x - centerX;
+                    dy = y - centerY;
+                    dis = dx * dx + dy * dy
                     // 阿加莎 center :760,350  r:40~100 MaxY: 430 index=3
                     //福尔摩斯 830,460->890,560 index=6
                     //东野圭吾 center: 760,350 r:40~100 MinX：670 index=4
-                    x = e.clientX;
-                    y = e.clientY;
-                    dx = x - 760;
-                    dy = y - 350;
-                    dis=dx*dx+dy*dy
-                    if (dis <= 10000 && dis >= 1600) {
-                        if (x > 760 && y < 430) {
+                    
+                    
+                    
+                    
+                    if (dis <= r2 * r2 && dis >= r1 * r1) {
+                        if (x > centerX ) {
                             index = 3;
                             display_page(index);
                         }
-                        else if (y > 350 && x > 670 && x < 760) {
+                        else if (y > centerY &&  x < centerX) {
                             index = 4;
                             display_page(index);
                         }
                     }
-                    else if (x > 830 && x < 890 && y > 460 && y < 560) {
+                    else if (dis > r3 * r3 && dis < r4 * r4 && x > centerX + r3 * 0.5 && x < centerX + r4 * 0.5 && y > centerY + r3 * 0.86 && y < centerY + r4*0.86) {
                         index = 6;
                         display_page(index);
 
                     }
-                    else if (x < 760 && x > 670 && dis < 1600) {
+                    else if (x < centerX && dis < r1 * r1) {
                         index = 7;
                         display_page(index);
                     }
