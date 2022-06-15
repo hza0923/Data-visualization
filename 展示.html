@@ -7,8 +7,9 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="./WordCloud/index.css">
     <style>
-        #go_back {
+        #jump,#jump3, #jump4 {
             /* visibility: hidden; */
+            float: right;
             height: 80px;
             width: 200px;
             background-color: aliceblue;
@@ -21,19 +22,48 @@
             /* box-shadow: gray 2px 2px; */
             border-radius: 5px;
         }
-
-            #go_back:hover {
+        #go_back {
+            /* visibility: hidden; */
+            float: right;
+            height: 80px;
+            width: 200px;
+            background-color: aliceblue;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            font-weight: 600;
+            font-size: 35px;
+            font-family: Arial, Helvetica, sans-serif;
+            /* box-shadow: gray 2px 2px; */
+            border-radius: 5px;
+        }
+        #jump1, #jump2 {
+            /* visibility: hidden; */
+            float: left;
+            height: 80px;
+            width: 200px;
+            background-color: aliceblue;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            font-weight: 600;
+            font-size: 35px;
+            font-family: Arial, Helvetica, sans-serif;
+            /* box-shadow: gray 2px 2px; */
+            border-radius: 5px;
+        }
+            #go_back，#jump,#jump1, #jump2, #jump3, #jump4:hover {
                 cursor: pointer;
                 box-shadow: gray 2px 2px;
             }
 
-            #go_back:active {
-                box-shadow: gray -2px -2px;
-            }
+        #go_back，#jump, #jump1, #jump2, #jump3, #jump4:active {
+            box-shadow: gray -2px -2px;
+        }
 
-            #go_back:link {
-                box-shadow: gray 4px 4px;
-            }
+        #go_back，#jump, #jump1, #jump2, #jump3, #jump4:link {
+            box-shadow: gray 4px 4px;
+        }
     </style>
 
 </head>
@@ -56,6 +86,7 @@
         
         
         var display_page = function (i) {
+            window.devicePixelRatio = 1.25;
             var ratio = window.devicePixelRatio / 1.25;
             var rate = screen.width / this.clientWidth;
             //console.log(ratio)
@@ -65,7 +96,10 @@
             $('#container1').remove();
             $('#change_style').remove();
             $('#go_back').remove();
-
+            $('#jump1').remove();
+            $('#jump2').remove();
+            $('#jump3').remove();
+            $('#jump4').remove();
             $('#dad').append('<div id="container" style="width: 100%; height: 100%; margin: 0;"></div>');
             document.getElementById("container").addEventListener('DOMMouseScroll', mousewheel, false);//firefox
             document.getElementById("container").onmousewheel = mousewheel;//chrome
@@ -150,14 +184,35 @@
                 window.addEventListener('resize', myChart.resize);
             }//豆瓣推理
             else if (i == 2) {//旭日图
+                $('#dad').append('<input id="jump1" value="阿加莎">');
+                $('#dad').append('<input id="jump2" value="福尔摩斯">');
+                $('#dad').append('<input id="jump3" value="东野圭吾">');
+                $('#dad').append('<input id="jump4" value="词云">');
+                $('#jump1').click(function (e) {
+                    index = 3;
+                    display_page(index);
+
+                })
+                $('#jump2').click(function (e) {
+                    index = 6;
+                    display_page(index);
+                })
+                $('#jump3').click(function (e) {
+                    index = 4;
+                    display_page(index);
+                })
+                $('#jump4').click(function (e) {
+                    index = 7;
+                    display_page(index);
+                })
                 $('#container').click(function (e) {
                     width = this.clientWidth, height = this.clientHeight;
                     x = e.clientX, y = e.clientY;
                     centerX = width / 2, centerY = height / 2;
-                    r1 = 40 * ratio
-                    r2 = 100 * ratio
-                    r3 = 130 * ratio
-                    r4 = 280 * ratio
+                    r1 = 40 * ratio / 1536*screen.width
+                    r2 = 100 * ratio / 1536 * screen.width
+                    r3 = 130 * ratio / 1536 * screen.width
+                    r4 = 280 * ratio / 1536 * screen.width
                     dx = x - centerX;
                     dy = y - centerY;
                     dis = dx * dx + dy * dy
@@ -568,6 +623,7 @@
             }//旭日图
             else if (i == 3)
             {
+                
                 $('#container').remove();
                 $('#dad').append('<div id="container" style="height: 90%;width:50%;float:left"></div>');
                 $('#dad').append('<div id="container1" style="height: 90%;width:50%;float:left"></div>');
